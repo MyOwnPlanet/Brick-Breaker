@@ -1,0 +1,29 @@
+"""Classes for the gameboard, bricks, paddle, and ball."""
+
+class Board:
+    def __init__(self):
+        """How big will the board be?"""
+        self.c_width = 600 #Width of canvas
+        self.c_height = 800 #Height of canvas
+
+class Bricks:
+    """Constants for the bricks"""
+    def __init__(self):
+        self.rows = 8 #How many rows of bricks
+        self.cols = 10 #How many columns
+        self.spacing = 5 #Spacing between the bricks
+        self.start_y = 50 #Y Coordinate of the top most brick
+        self.b_height = 20 #Height of each brick
+        board = Board() #gets the board
+        self.b_width = (board.c_width - (self.cols+1) * self.spacing)/self.cols
+
+class Paddle:
+    #constant for ball and paddle
+    def __init__(self):
+        board = Board()
+        self.ball_size = 40
+        self.p_width = 80
+        self.p_y = board.c_height - 40
+
+
+
