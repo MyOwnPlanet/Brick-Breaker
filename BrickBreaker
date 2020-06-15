@@ -1,0 +1,68 @@
+"""An attempt to create the game brick breaker using tkinter"
+
+import tkinter
+from board import Bricks
+from board import Board
+from board import Paddle
+import time
+
+board = Board()
+bricks = Bricks()
+paddle = Paddle()
+
+def main():
+    canvas = make_canvas(board.c_width, board.c_height, 'Brick Breaker')
+    draw_brick(canvas)
+    ball_bounce(canvas)
+    canvas.mainloop()
+
+def ball_bounce(canvas):
+    dx = 9
+    dy = 6
+    ball = canvas.create_oval(400, 400, 425, 425, fill="red")
+    while True:
+        canvas.move(ball, dx, dy)
+        canvas.update()
+        time.sleep(1/50)
+
+def draw_brick(canvas):
+    for col in range(bricks.rows):
+        for row in range(bricks.cols):
+            x = col * (bricks.b_width + bricks.spacing)
+            y = row * (bricks.b_height + bricks.spacing)
+            color = "blue"
+            canvas.create_rectangle(x + bricks.spacing, y + bricks.start_y, x + bricks.b_width + bricks.spacing,
+            y + bricks.start_y + bricks.b_height, fill = color)
+
+def get_top_y(canvas, object):
+    '''
+    This friendly method returns the y coordinate of the top of an object.
+    Recall that canvas.coords(object) returns a list of the object 
+    bounding box: [x_1, y_1, x_2, y_2]. The element at index 1 is the top-y
+    '''
+    return canvas.coords(object)[1]
+
+def get_left_x(canvas, object):
+    '''
+    This friendly method returns the x coordinate of the left of an object.
+    Recall that canvas.coords(object) returns a list of the object 
+    bounding box: [x_1, y_1, x_2, y_2]. The element at index 0 is the left-x
+    '''
+    return canvas.coords(object)[0]
+
+def make_canvas(width, height, title):
+    """
+    DO NOT MODIFY
+    Creates and returns a drawing canvas
+    of the given int size with a blue border,
+    ready for drawing.
+    """
+    top = tkinter.Tk()
+    top.minsize(width=width, height=height)
+    top.title(title)
+    canvas = tkinter.Canvas(top, width=width + 1, height=height + 1)
+    canvas.pack()
+    return canvas
+
+if __name__ == '__main__':
+    main()
